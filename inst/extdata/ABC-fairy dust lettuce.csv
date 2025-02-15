@@ -1,0 +1,7 @@
+title;weight;short;question;ccp_rating;ccp_confidence;ipm_rating;ipm_confidence;value_metric
+ABC - Using fairy dust (IPM) instead of glyphosate (CCP) on lettuce crops;50;crop value;Crop value loss when using the technology/package is BLANK;low impact;H;low impact;H;Maintaining crop value
+;12.5;health and safety;Worker (non-applicators) and/or consumer exposure to health and/or safety risks is BLANK;medium impact;M;low impact;VH;Reducing health and safety risks
+;12.5;direct costs;The cost of the technology/package to implement is BLANK;very low impact;H;low impact;M;Minimizing direct costs
+;12.5;environment;The potential environmental impact of package implementation is BLANK;low impact;H;medium impact;M;Minimizing environmental impacts
+;6.25;time and management;The time and/or effort requirement of the user to implement and/or maintain the effectiveness of the technology/package is BLANK;very low impact;H;low impact;H;Minimizing time and management demands
+;6.25;coordination requirements;The coordination required for the technology/package to be effective is BLANK;very low impact;H;medium impact;M;Immediate usability
