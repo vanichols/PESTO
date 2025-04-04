@@ -1,5 +1,5 @@
 
-d <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "ipmopat")
+d <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "PESTO")
 
 d1 <-
   readr::read_delim(d, delim = ";") %>%

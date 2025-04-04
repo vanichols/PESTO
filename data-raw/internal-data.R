@@ -1,9 +1,9 @@
 # all data to be used internally should be created here
-
+#--last updated 4 april 2025, making sure terminology is consistent (package 1, value, impact, etc)
 
 # internal file - good input file ---------------------------------------------------------
 
-a1 <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "ipmopat")
+a1 <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "PESTO")
 
 a2 <-
   readr::read_delim(a1, delim = ";") %>%
@@ -12,20 +12,19 @@ a2 <-
 internal_exinput <- a2
 
 
-# internal file - crappy input file ---------------------------------------------------------
+# internal file - crappy input file for testing---------------------------------------------------------
 
 a3 <-
   readr::read_delim(a1, delim = ";") %>%
   dplyr::mutate(weight = ifelse(short == 'crop value', 45, weight)) %>%
-  dplyr::rename(cpc_rating = ccp_rating)
+  dplyr::rename(package1_weirdcolname = package1_text)
 
 internal_exinputBAD <- a3
 
 
 # c. impact factor info ---------------------------------------------------
 
-
-c <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "ipmopat")
+c <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "PESTO")
 
 c1 <-
   read_delim(d, delim = ";") %>%
@@ -40,7 +39,7 @@ internal_impactcatsinfo <- c2
 
 # internal file - binned beta distributions ---------------------------------------------------------
 
-d1 <- system.file("extdata", "byhand_distribution-cheat-sheet2.xlsx", package = "ipmopat")
+d1 <- system.file("extdata", "byhand_distribution-cheat-sheet2.xlsx", package = "PESTO")
 
 d2 <- readxl::read_excel(d1, skip = 5)
 
@@ -67,17 +66,17 @@ d3 <-
 
 #--check it
 d3 %>%
-  dplyr::mutate(ratingF = forcats::fct_inorder(rating),
+  dplyr::mutate(rating_textF = forcats::fct_inorder(rating_text),
                 confidenceF = forcats::fct_inorder(confidence)) %>%
   ggplot2::ggplot(ggplot2::aes(value_bin, score)) +
   ggplot2::geom_col() +
-  ggplot2::facet_grid(ratingF ~confidenceF)
+  ggplot2::facet_grid(rating_textF ~confidenceF)
 
 
 internal_binned_betas <- d3
 
 
-# combine -----------------------------------------------------------------
+# write all internal data -----------------------------------------------------------------
 
 
 usethis::use_data(

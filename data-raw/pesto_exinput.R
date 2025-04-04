@@ -7,7 +7,7 @@ library(tidyr)
 
 # 1. read in data ---------------------------------------------------------
 
-d <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "ipmopat")
+d <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "PESTO")
 
 d1 <-
   read_delim(d, delim = ";") %>%
