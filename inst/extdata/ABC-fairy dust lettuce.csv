@@ -1,7 +1,7 @@
 title;weight;short;question;package1_text;package1_conf;package2_text;package2_conf;value_metric
-ABC - Comparison of using glyphosate (CCP) and fairy dust (IPM) for weed control in lettuce crops in Denmark;50;crop value;Crop value loss when using the technology/package is BLANK;very low;H;low;H;Maintaining crop value
-;12.5;health and safety;Worker (non-applicators) and/or consumer exposure to health and/or safety risks is BLANK;medium;M;very low;VH;Reducing health and safety risks
-;12.5;direct costs;The cost of the technology/package to implement is BLANK;medium;H;medium;M;Minimizing direct costs
-;12.5;environment;The potential environmental impact of package implementation is BLANK;high;H;very low;M;Minimizing environmental impacts
-;6.25;time and management;The time and/or effort requirement of the user to implement and/or maintain the effectiveness of the technology/package is BLANK;medium;H;low;H;Minimizing time and management demands
-;6.25;coordination requirements;The coordination required for the technology/package to be effective is BLANK;low;H;medium;M;Immediate usability
+ABC - Comparison of using frog warts (Package #1) and fairy dust (Package #2) for weed control in lettuce crops in Denmark;50;crop value;Crop value loss when using the technology/package is BLANK;very low;H;very low;H;Maintaining crop value
+;12.5;health and safety;Worker (non-applicators) and/or consumer exposure to health and/or safety risks is BLANK;high;M;very low;VH;Reducing health and safety risks
+;12.5;direct costs;The cost of the technology/package to implement is BLANK;high;H;medium;M;Minimizing direct costs
+;12.5;environment;The potential environmental impact of package implementation is BLANK;very high;H;very low;M;Minimizing environmental impacts
+;6.25;time and management;The time and/or effort requirement of the user to implement and/or maintain the effectiveness of the technology/package is BLANK;very high;H;low;H;Minimizing time and management demands
+;6.25;coordination requirements;The coordination required for the technology/package to be effective is BLANK;medium;H;medium;M;Immediate usability

@@ -1,6 +1,8 @@
 # all data to be used internally should be created here
 #--last updated 4 april 2025, making sure terminology is consistent (package 1, value, impact, etc)
 
+rm(list = ls())
+
 # internal file - good input file ---------------------------------------------------------
 
 a1 <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "PESTO")
@@ -39,7 +41,7 @@ internal_impactcatsinfo <- c2
 
 # internal file - binned beta distributions ---------------------------------------------------------
 
-d1 <- system.file("extdata", "byhand_distribution-cheat-sheet2.xlsx", package = "PESTO")
+d1 <- system.file("extdata", "byhand_distribution-cheat-sheet3.xlsx", package = "PESTO")
 
 d2 <- readxl::read_excel(d1, skip = 5)
 

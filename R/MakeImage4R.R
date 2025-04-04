@@ -41,33 +41,35 @@ MakeImage4R <- function(f_dat = pesto_exinput){
     a_dat2 %>%
     dplyr::pull(short)
 
-  # #--separate data into ccp data and ipm data
-  a_dat_ccp <-
+  # #--separate data into pkg1 and pkg2 data
+  a_dat_pkg1 <-
     a_dat2 %>%
-    dplyr::select(title, weight, short, rating = ccp_rating, confidence = ccp_confidence)
+    dplyr::select(title, weight, short,
+                  rating_text = package1_text,
+                  confidence = package1_conf)
 
-  t.sum_ccp <- NULL
+  t.sum_pkg1 <- NULL
 
   suppressMessages(
     for(i in 1:length(t.cats)){
 
       #--get single metric rating and confidence combo
-      t1_ccp <-
-        a_dat_ccp %>%
+      t1_pkg1 <-
+        a_dat_pkg1 %>%
         dplyr::filter(short == t.cats[i])
 
       #--merge with beta dist for that combo
-      t2_ccp <-
-        t1_ccp %>%
+      t2_pkg1 <-
+        t1_pkg1 %>%
         dplyr::left_join(
           internal_binned_betas %>%
-            dplyr::filter(rating == t1_ccp$rating,
-                          confidence == t1_ccp$confidence)
+            dplyr::filter(rating_text == t1_pkg1$rating_text,
+                          confidence == t1_pkg1$confidence)
         ) %>%
-        dplyr::mutate(scenario = "CCP")
+        dplyr::mutate(scenario = "Package #1")
 
-      t.sum_ccp <-
-        dplyr::bind_rows(t.sum_ccp, t2_ccp)
+      t.sum_pkg1 <-
+        dplyr::bind_rows(t.sum_pkg1, t2_pkg1)
 
       i <- i + 1
 
@@ -75,42 +77,42 @@ MakeImage4R <- function(f_dat = pesto_exinput){
   )
 
     #--now do ipm data--
-    a_dat_ipm <-
+    a_dat_pkg2 <-
       a_dat2 %>%
       dplyr::select(title, weight, short,
-             rating = ipm_rating,
-             confidence = ipm_confidence)
+             rating_text = package2_text,
+             confidence = package2_conf)
 
 
-    t.sum_ipm <- NULL
+    t.sum_pkg2 <- NULL
 
     suppressMessages(
       for(i in 1:length(t.cats)){
 
         #--get single metric rating and confidence combo
-        t1_ipm <-
-          a_dat_ipm %>%
+        t1_pkg2 <-
+          a_dat_pkg2 %>%
           dplyr::filter(short == t.cats[i])
 
         #--merge with beta dist for that combo
-        t2_ipm <-
-          t1_ipm %>%
+        t2_pkg2 <-
+          t1_pkg2 %>%
           dplyr::left_join(
             internal_binned_betas %>%
-              dplyr::filter(rating == t1_ipm$rating,
-                            confidence == t1_ipm$confidence)
+              dplyr::filter(rating_text == t1_pkg2$rating_text,
+                            confidence == t1_pkg2$confidence)
           ) %>%
-          dplyr::mutate(scenario = "IPM")
+          dplyr::mutate(scenario = "Package #2")
 
-        t.sum_ipm <-
-          dplyr::bind_rows(t.sum_ipm, t2_ipm)
+        t.sum_pkg2 <-
+          dplyr::bind_rows(t.sum_pkg2, t2_pkg2)
 
         i <- i + 1
 
       }
       )
 
-    dat.part.a <- dplyr::bind_rows(t.sum_ccp, t.sum_ipm)
+    dat.part.a <- dplyr::bind_rows(t.sum_pkg1, t.sum_pkg2)
 
     #--B. make a summary data table----------------------------------
 
@@ -265,7 +267,8 @@ MakeImage4R <- function(f_dat = pesto_exinput){
         dplyr::mutate(value_binF = as.factor(value_bin),
                       value_metric = stringr::str_to_sentence(value_metric),
                       descF = forcats::fct_inorder(desc),
-                      scenarioF = factor(scenario, levels = c("CCP", "IPM"))) %>%
+                      scenarioF = factor(scenario, levels = c("Package #1",
+                                                              "Package #2"))) %>%
         ggplot(aes(value_bin, score)) +
         geom_col(aes(fill = value_binF), linewidth = 1, color = "black", show.legend = F) +
         scale_fill_manual(values = c(av1, av2, av3, av4, av5)) +
@@ -274,34 +277,60 @@ MakeImage4R <- function(f_dat = pesto_exinput){
                            position = "right") +
         scale_x_continuous(
           breaks = c(1, 2, 3, 4, 5),
-          labels = c("Very low value", "Low value", "Medium value", "Highly valuable", "Very highly valuable")) +
-        labs(x = NULL,
-             y = NULL) +
+          labels = c("Very low", "Low", "Medium", "High", "Very high")) +
+        labs(y = NULL,
+             x = "Performance") +
         th1 +
-        facet_grid(descF ~ scenarioF, labeller = label_wrap_gen(), switch = "y")
+        facet_grid(descF ~ scenarioF, labeller = label_wrap_gen(width = 20), switch = "y")
 
+
+
+      dat.part.c.util <-
+        dat.part.c %>%
+        dplyr::filter(short == "all") %>%
+        dplyr::arrange(scenario, -weight) %>%
+        dplyr::select(scenario, score, value_bin) %>%
+        dplyr::mutate(value = dplyr::case_when(
+          value_bin == 5 ~ 100,
+          value_bin == 4 ~ 75,
+          value_bin == 3 ~ 50,
+          value_bin == 2 ~ 25,
+          value_bin == 1 ~ 0,
+          TRUE ~ 9999
+        )) %>%
+          dplyr::group_by(scenario) %>%
+          dplyr::summarise(util = round(weighted.mean(x = value, w = score), 0)) %>%
+        dplyr::mutate(scenarioF = factor(scenario, levels = c("Package #1",
+                                                              "Package #2")),
+                      util_label = paste0("Utility = ", util, "%"))
 
       p2 <-
         dat.part.c %>%
         dplyr::filter(short == "all") %>%
+        dplyr::mutate(desc = "Weighted combination of all categories") %>%
         dplyr::arrange(scenario, -weight) %>%
         dplyr::mutate(value_binF = as.factor(value_bin),
                       value_metric = stringr::str_to_sentence(value_metric),
                       descF = forcats::fct_inorder(desc),
-                      scenarioF = factor(scenario, levels = c("CCP", "IPM"))) %>%
+                      scenarioF = factor(scenario, levels = c("Package #1",
+                                                              "Package #2"))) %>%
         ggplot(aes(value_bin, score)) +
         geom_col(aes(fill = value_binF), linewidth = 1, color = "black", show.legend = F) +
+        geom_text(data = dat.part.c.util,
+                  aes(x = 3, y = 90, label = util_label,
+                      fontface = "italic"),
+                  hjust = 0.5) +
         scale_fill_manual(values = c(av1, av2, av3, av4, av5)) +
         scale_y_continuous(limits = c(0, 100),
                            breaks = c(0, 25, 50, 75, 100),
                            position = "right") +
         scale_x_continuous(
           breaks = c(1, 2, 3, 4, 5),
-          labels = c("Very low value", "Low value", "Medium value", "Highly valuable", "Very highly valuable")) +
-        labs(x = NULL,
-             y = NULL) +
+          labels = c("Very low", "Low", "Medium", "High", "Very high")) +
+        labs(y = NULL,
+             x = "Performance") +
         th1 +
-        facet_grid(descF ~ scenarioF, labeller = label_wrap_gen(), switch = "y")
+        facet_grid(descF ~ scenarioF, labeller = label_wrap_gen(width = 20), switch = "y")
 
 
       layout <- "

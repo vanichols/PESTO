@@ -4,6 +4,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 
+rm(list = ls())
 
 # 1. read in data ---------------------------------------------------------
 
@@ -23,3 +24,5 @@ d2 <-
 
 pesto_exinput <- d2
 usethis::use_data(pesto_exinput, overwrite = TRUE)
+
+
