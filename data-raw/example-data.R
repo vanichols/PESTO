@@ -3,18 +3,6 @@
 
 rm(list = ls())
 
-# xx. old good example, for transition only---------------------------------------------------------
-
-x1 <- system.file("extdata", "ABC-fairy dust lettuce.csv", package = "PESTO")
-
-x2 <-
-  readr::read_delim(x1, delim = ";")
-
-#--externally available dataset
-pesto_exinputOLD <- x2
-usethis::use_data(pesto_exinputOLD, overwrite = TRUE)
-
-
 
 # a. good input file example---------------------------------------------------------
 
