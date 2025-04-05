@@ -14,12 +14,12 @@ knitr::opts_chunk$set(
 ```
 
 # PESTO
-## *P*esticide management *E*valuation *S*ys*T*em, *O*pen-source
+## *PES*t management assessment *TO*ol
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PESTO is to provide functions to intake elicitation data from the ADOPT-IPM project and create easy-to-interpret visualizations. Watch for the PESTO-VIZ online tool, coming soon...
+The goal of PESTO is to provide functions to intake qualitative survey data from the ADOPT-IPM collaborators and create data frame summaries that can be turned into easy-to-interpret visualizations. Watch for the PESTO-VIZ online tool, coming soon...
 
 ## Installation
 
@@ -32,7 +32,7 @@ pak::pak("vanichols/PESTO")
 
 ## Example
 
-Hang on
+Hang on, this is a work in progress
 
 ```{r example}
 library(PESTO)

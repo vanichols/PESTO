@@ -1,11 +1,5 @@
-#' Intakes elicitation data
-#'
-#' @param f_dat The elicited data, default is to use ipm_exinput
-#' @returns An image
-#' @export
 
-
-MakeImage4R <- function(f_dat = pesto_exinput){
+MakeImage4R <- function(f_dat = pesto_exinputOLD){
 
   #--A. use lookup beta distributions to match to elicitation data----------------------
   #--make sure input data is correct
@@ -26,7 +20,7 @@ MakeImage4R <- function(f_dat = pesto_exinput){
 
   a_dat2 <-
     a_dat1 %>%
-    dplyr::select(names(internal_exinput)) %>%
+    dplyr::select(-question, -value_metric) %>%
     dplyr::mutate_if(is.character, stringr::str_to_lower)
 
 
@@ -62,7 +56,7 @@ MakeImage4R <- function(f_dat = pesto_exinput){
       t2_pkg1 <-
         t1_pkg1 %>%
         dplyr::left_join(
-          internal_binned_betas %>%
+          internal_binnedbetas %>%
             dplyr::filter(rating_text == t1_pkg1$rating_text,
                           confidence == t1_pkg1$confidence)
         ) %>%
@@ -98,7 +92,7 @@ MakeImage4R <- function(f_dat = pesto_exinput){
         t2_pkg2 <-
           t1_pkg2 %>%
           dplyr::left_join(
-            internal_binned_betas %>%
+            internal_binnedbetas %>%
               dplyr::filter(rating_text == t1_pkg2$rating_text,
                             confidence == t1_pkg2$confidence)
           ) %>%

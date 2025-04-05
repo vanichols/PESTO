@@ -1,9 +1,3 @@
-#' Intakes elicitation data
-#'
-#' @param f_dat The elicited data, default is to use ipm_exinput
-#' @returns An image
-#' @export
-
 
 MakeImage4Python <- function(f_dat = pesto_exinput){
 

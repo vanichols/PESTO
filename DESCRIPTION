@@ -1,5 +1,5 @@
 Package: PESTO
-Title: Transforms Elicitation Data Into Visuals
+Title: Transforms Elicitation Data Into Dataframe for Visualization
 Version: 0.0.0.9000
 Authors@R: 
     person("Virginia", "Nichols", , "virginia.nichols@gmail.com", role = c("aut", "cre"),

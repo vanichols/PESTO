@@ -1,0 +1,19 @@
+title;package_title;weight;assessment_category;assignment_text;assignment_confidence
+Denmark - Comparison of using frog warts, fairy dust and troll manure for weed control in lettuce crops;frog warts;50;crop value losses;very low;H
+;;12.5;health and safety;high;M
+;;12.5;direct costs;high;H
+;;12.5;environment;very high;H
+;;6.25;time and management;very high;H
+;;6.25;coordination requirements;medium;H
+;fairy dust;50;crop value losses;very low;H
+;;12.5;health and safety;very low;VH
+;;12.5;direct costs;medium;M
+;;12.5;environment;very low;M
+;;6.25;time and management;low;H
+;;6.25;coordination requirements;medium;M
+;troll manure;50;crop value losses;medium;M
+;;12.5;health and safety;very high;VH
+;;12.5;direct costs;very low;H
+;;12.5;environment;medium;M
+;;6.25;time and management;medium;H
+;;6.25;coordination requirements;very low;VH
