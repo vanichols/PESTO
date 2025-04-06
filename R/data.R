@@ -25,3 +25,27 @@
 #'   \item{performance_metric}{A nice, concise wording for use in figures}
 #' }
 "pesto_assessmentkey"
+
+#' Example of output from MakePestoDF fxn
+#'
+#' Used as default data in fxn
+#'
+#' @format A data frame with 90 rows and 8 variables:
+#' \describe{
+#'   \item{title}{Title provided in pesto_exinput}
+#'   \item{package_title}{Same}
+#'   \item{weight}{Same}
+#'   \item{assessment_category}{Same}
+#'   \item{rating_text}{Same}
+#'   \item{confidence}{Same}
+#'   \item{score}{The rating text and confidence translated into a score for each value_bin}
+#'   \item{value_bin}{The value bin, corresponding to very low, low, med, high, very high performance}
+#'   }
+"pesto_exdf"
+
+#' Color palette for performance bar graphs
+#'
+#' Just colors
+#'
+#' @format A vector of length 5
+"pesto_pal"
